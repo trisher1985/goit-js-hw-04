@@ -1,33 +1,61 @@
 'use strict';
 
 
-// Напиши функцію slugify(title), яка приймає заголовок статті, параметр title і повертає slug,
-//  створений із цього рядка.
+// /Задача 1. Пакування товарів
+// Виконуй це завдання у файлі task-1.js
+// Напиши функцію isEnoughCapacity(products, containerSize), яка обчислює, 
+// чи помістяться всі товари в контейнер при пакуванні.
 
-// Значенням параметра title будуть рядки, слова яких розділені лише пробілами.
-// Усі символи slug повинні бути в нижньому регістрі.
-// Усі слова slug повинні бути розділені тире.
-// Візьми код нижче і встав після оголошення своєї функції для перевірки коректності її роботи.
-//  У консоль будуть виведені результати її роботи.
+// Функція оголошує два параметри:
 
+// products — об’єкт, у якому ключі містять назви товарів, а їхні значення — кількість цих товарів.
+//  Наприклад, { apples: 2, grapes: 4 }.
+// containerSize — число, максимальна кількість одиниць товарів, яку в себе може вмістити контейнер.
+// Функція має повернути результат перевірки, чи помістяться всі товари в контейнер. Тобто порахувати
+//  загальну кількість товарів в об’єкті products і повернути true, якщо вона менше або дорівнює 
+// containerSize, і false, якщо ні.
 
+// Візьми код нижче і встав після оголошення своєї функції для перевірки коректності її роботи. 
+// У консоль будуть виведені результати її викликів.
 
-// console.log(slugify("Arrays for beginners")); // "arrays-for-beginners"
-// console.log(slugify("English for developer")); // "english-for-developer"
-// console.log(slugify("Ten secrets of JavaScript")); // "ten-secrets-of-javascript"
-// console.log(slugify("How to become a JUNIOR developer in TWO WEEKS")); // "how-to-become-a-junior-developer-in-two-weeks"
+// console.log(
+//   isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)); // true
 
-function slugify(title) {
-    // Перетворюємо рядок у нижній регістр
-    let slug = title.toLowerCase();
-    // Розділяємо слова за пробілами та об'єднуємо їх тире
-    slug = slug.split(' ').join('-');
-    return slug;
+// console.log(
+//   isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)); // false
+
+// console.log(
+//   isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)); // true
+
+// console.log(
+//   isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)); // false
+
+// Залиш цей код для перевірки ментором.
+
+// На що буде звертати увагу ментор при перевірці:
+// Оголошена функція isEnoughCapacity(products, containerSize)
+// Виклик isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8) повертає true
+// Виклик isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12) повертає false
+// Виклик isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14) повертає true
+// Виклик isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7) повертає false
+
+function isEnoughCapacity(products, containerSize) {
+    let total = 0;
+    for (const key in products) {
+    if (products.hasOwnProperty(key) && typeof products[key] === "number") 
+        // метод hasOwnProperty, щоб переконатися,  що враховуються  
+        // лише власні властивості об'єкта products, а не успадковані.
+        {
+        total += products[key];
+    }
+    }
+    return total <= containerSize;
+    // замість використання if...else для повернення результату, використовується 
+    // одне порівняння total <= containerSize, що робить код коротшим
+
 }
 
-  // Перевірка роботи функції
-  console.log(slugify("Arrays for beginners")); // "arrays-for-beginners"
-  console.log(slugify("English for developer")); // "english-for-developer"
-  console.log(slugify("Ten secrets of JavaScript")); // "ten-secrets-of-javascript"
-  console.log(slugify("How to become a JUNIOR developer in TWO WEEKS")); // "how-to-become-a-junior-developer-in-two-weeks"
-  
+console.log(isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)); // true
+console.log(isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)); // false
+console.log(isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)); // true
+console.log(isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)); // false
